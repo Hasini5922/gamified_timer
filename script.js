@@ -1,6 +1,3 @@
-// ============================================
-// CONFIGURATION
-// ============================================
 const CONFIG = {
     work: 25 * 60,
     break: 5 * 60,
@@ -40,9 +37,6 @@ const QUOTES = [
     { q: "The future belongs to those who believe in the beauty of their dreams.", a: "Eleanor Roosevelt" }
 ];
 
-// ============================================
-// STATE
-// ============================================
 let state = {
     timeLeft: CONFIG.work,
     totalTime: CONFIG.work,
@@ -68,9 +62,6 @@ let state = {
     isLoggedIn: false
 };
 
-// ============================================
-// DOM REFERENCES
-// ============================================
 const DOM = {
     authOverlay: document.getElementById('authOverlay'),
     loginForm: document.getElementById('loginForm'),
@@ -155,9 +146,6 @@ const DOM = {
     particles: document.getElementById('particles')
 };
 
-// ============================================
-// PARTICLES
-// ============================================
 function createParticles() {
     if (!DOM.particles) return;
     const colors = ['#667eea', '#764ba2', '#4CAF50', '#FFC107', '#f44336'];
@@ -175,9 +163,6 @@ function createParticles() {
     }
 }
 
-// ============================================
-// AUTHENTICATION - FIXED
-// ============================================
 function showLoginForm() {
     DOM.loginForm.classList.add('active');
     DOM.signupForm.classList.remove('active');
@@ -250,9 +235,6 @@ function showSignupSuccess(message) {
     el.style.fontSize = '0.9rem';
 }
 
-// ============================================
-// HANDLE LOGIN - FIXED
-// ============================================
 function handleLogin(e) {
     e.preventDefault();
     
@@ -303,9 +285,6 @@ function handleLogin(e) {
     }, 800);
 }
 
-// ============================================
-// HANDLE SIGNUP - FIXED
-// ============================================
 function handleSignup(e) {
     e.preventDefault();
     
@@ -360,9 +339,6 @@ function handleSignup(e) {
     }, 1000);
 }
 
-// ============================================
-// LOGIN USER - FIXED: Ensures name shows everywhere
-// ============================================
 function loginUser() {
 
     const loggedInName = state.userName;
@@ -370,7 +346,6 @@ function loginUser() {
 
     loadState();
 
-    // Restore current logged-in user
     state.userName = loggedInName;
     state.userEmail = loggedInEmail;
 
@@ -397,9 +372,6 @@ function loginUser() {
     );
 }
 
-// ============================================
-// LOGOUT USER
-// ============================================
 function logoutUser() {
     if (confirm('Are you sure you want to logout?')) {
         state.isLoggedIn = false;
@@ -423,9 +395,6 @@ function logoutUser() {
     }
 }
 
-// ============================================
-// THEME TOGGLE
-// ============================================
 function toggleTheme() {
     const currentTheme = document.documentElement.getAttribute('data-theme');
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
@@ -440,9 +409,6 @@ function loadTheme() {
     DOM.themeToggle.innerHTML = savedTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
 }
 
-// ============================================
-// PROFILE
-// ============================================
 function toggleProfile() {
     DOM.profileDropdown.classList.toggle('active');
 }
@@ -451,9 +417,6 @@ function closeProfile() {
     DOM.profileDropdown.classList.remove('active');
 }
 
-// ============================================
-// NAVIGATION
-// ============================================
 function navigateTo(pageName) {
     DOM.navBtns.forEach(btn => {
         btn.classList.toggle('active', btn.dataset.page === pageName);
@@ -472,9 +435,6 @@ function navigateTo(pageName) {
     showRandomQuote();
 }
 
-// ============================================
-// QUOTES
-// ============================================
 function showRandomQuote() {
     const quote = QUOTES[Math.floor(Math.random() * QUOTES.length)];
     DOM.quoteDisplay.textContent = `"${quote.q}"`;
@@ -497,9 +457,6 @@ function fetchQuote() {
         .catch(() => showRandomQuote());
 }
 
-// ============================================
-// TIMER FUNCTIONS
-// ============================================
 function startTimer() {
     if (state.isPaused) {
         state.isPaused = false;
@@ -593,9 +550,6 @@ function updateDisplay() {
     DOM.progressCircle.style.stroke = pct > 60 ? '#4CAF50' : pct > 30 ? '#FFC107' : '#f44336';
 }
 
-// ============================================
-// SESSION MANAGEMENT - FIXED WITH BREAK CONTROLS
-// ============================================
 function completeSession() {
     const duration = state.customDuration;
     state.points += CONFIG.pts.session;
@@ -623,9 +577,7 @@ function completeSession() {
     renderHistory();
     saveState();
     
-    // Check if user wants to take a break
     if (state.takeBreak && state.breakDuration > 0) {
-        // Start break
         state.isBreak = true;
         state.timeLeft = state.breakDuration * 60;
         state.totalTime = state.breakDuration * 60;
@@ -661,9 +613,6 @@ function completeBreak() {
     }, 1000);
 }
 
-// ============================================
-// LEVELS & ACHIEVEMENTS
-// ============================================
 function checkLevelUp() {
     for (let i = LEVELS.length - 1; i >= 0; i--) {
         if (state.points >= LEVELS[i].pointsRequired && LEVELS[i].level > state.level) {
@@ -707,9 +656,6 @@ function renderAchievements() {
     DOM.achProgressBar.style.width = pct + '%';
 }
 
-// ============================================
-// TASKS
-// ============================================
 function addTask() {
     const text = DOM.taskInput.value.trim();
     if (!text) { alert('Please enter a task!'); return; }
@@ -809,9 +755,6 @@ function updateTaskStats() {
     DOM.taskProgressText.textContent = Math.round(pct) + '%';
 }
 
-// ============================================
-// HOME PAGE - FIXED: Shows user's name
-// ============================================
 function updateHomePage() {
     DOM.welcomeName.textContent = state.userName || 'User';
     DOM.miniStreak.textContent = state.streak;
@@ -843,9 +786,6 @@ function updateHomePage() {
     DOM.homeLevelName.textContent = currentLevel.name;
 }
 
-// ============================================
-// HISTORY
-// ============================================
 function renderHistory() {
     const list = DOM.historyList;
     if (!state.history || !state.history.length) {
@@ -870,9 +810,6 @@ function renderHistory() {
     }).join('');
 }
 
-// ============================================
-// UI UPDATE - FIXED: Shows user's name
-// ============================================
 function updateUI() {
     DOM.sessionCount.textContent = state.sessions;
     const hours = Math.floor(state.focusTime / 3600);
@@ -881,7 +818,6 @@ function updateUI() {
     updateHomePage();
 }
 
-// FIXED: Update user profile with actual name
 function updateUserProfile() {
 
     const name = state.userName || 'User';
@@ -898,9 +834,6 @@ function updateUserProfile() {
         state.userEmail || 'user@email.com';
 }
 
-// ============================================
-// PROFILE - EDIT PROFILE
-// ============================================
 function loadProfileData() {
     const users = JSON.parse(localStorage.getItem('users') || '[]');
     const user = users.find(u => u.email === state.userEmail);
@@ -979,9 +912,6 @@ function handleProfileEdit(e) {
     setTimeout(function() { navigateTo('home'); }, 500);
 }
 
-// ============================================
-// SETTINGS
-// ============================================
 function loadSettings() {
     const darkModeToggle = document.getElementById('darkModeToggle');
     darkModeToggle.checked = document.documentElement.getAttribute('data-theme') === 'dark';
@@ -1057,9 +987,6 @@ function loadSettings() {
     });
 }
 
-// ============================================
-// STATISTICS
-// ============================================
 function loadStatistics() {
     animateNumber('statsTotalSessions', state.sessions);
     animateNumber('statsTotalPoints', state.points);
@@ -1123,9 +1050,6 @@ function renderDistributionChart() {
     }).join('');
 }
 
-// ============================================
-// DATA MANAGEMENT
-// ============================================
 function exportData() {
     const data = {
         version: '1.0',
@@ -1208,9 +1132,6 @@ function clearAllData() {
     }
 }
 
-// ============================================
-// BREAK CONTROLS SETUP - FIXED
-// ============================================
 function setupBreakControls() {
     // Break duration input
     if (DOM.breakMinutes) {
@@ -1225,7 +1146,6 @@ function setupBreakControls() {
         });
     }
     
-    // Break toggle
     if (DOM.breakToggle) {
         DOM.breakToggle.checked = state.takeBreak !== false;
         if (DOM.breakToggleText) {
@@ -1245,9 +1165,6 @@ function setupBreakControls() {
     }
 }
 
-// ============================================
-// NOTIFICATIONS
-// ============================================
 function showNotification(title, message) {
     if (Notification.permission === 'granted' && localStorage.getItem('notificationsEnabled') !== 'false') {
         new Notification(title, { body: message, icon: '🎯' });
@@ -1259,9 +1176,7 @@ function showNotification(title, message) {
     setTimeout(function() { el.style.animation = 'slideOut 0.5s ease'; setTimeout(function() { el.remove(); }, 500); }, 4000);
 }
 
-// ============================================
-// STREAK CHECK
-// ============================================
+
 function checkDailyStreak() {
     const today = new Date().toDateString();
     const last = state.lastDate ? new Date(state.lastDate).toDateString() : null;
@@ -1274,9 +1189,6 @@ function checkDailyStreak() {
     }
 }
 
-// ============================================
-// SAVE/LOAD
-// ============================================
 function saveState() {
     const data = {
         points: state.points, level: state.level, streak: state.streak,
@@ -1315,9 +1227,6 @@ function loadState() {
     }
 }
 
-// ============================================
-// EVENT LISTENERS SETUP
-// ============================================
 function setupEventListeners() {
     DOM.themeToggle.addEventListener('click', toggleTheme);
     DOM.profileBtn.addEventListener('click', toggleProfile);
@@ -1351,9 +1260,6 @@ function setupEventListeners() {
     setupBreakControls();
 }
 
-// ============================================
-// INITIALIZATION - FIXED
-// ============================================
 function init() {
     console.log("DOM.showSignup", DOM.showSignup);
     console.log("DOM.showLogin", DOM.showLogin);
@@ -1405,9 +1311,6 @@ function init() {
     DOM.signupForm.addEventListener('submit', handleSignup);
 }
 
-// ============================================
-// START APP
-// ============================================
 document.addEventListener('DOMContentLoaded', function() {
     window.startTimer = startTimer;
     window.pauseTimer = pauseTimer;

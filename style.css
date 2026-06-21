@@ -1,6 +1,3 @@
-/* ============================================
-   CSS VARIABLES
-   ============================================ */
 :root {
     --bg-primary: #f0f2f5;
     --bg-secondary: #ffffff;
@@ -44,9 +41,6 @@
     --auth-bg: rgba(0, 0, 0, 0.85);
 }
 
-/* ============================================
-   AUTH / LOGIN PAGE
-   ============================================ */
 .auth-overlay {
     position: fixed;
     top: 0;
@@ -252,9 +246,6 @@
     margin-top: 0.5rem;
 }
 
-/* ============================================
-   RESET & BASE
-   ============================================ */
 * {
     margin: 0;
     padding: 0;
@@ -269,9 +260,6 @@ body {
     transition: background 0.3s ease, color 0.3s ease;
 }
 
-/* ============================================
-   ANIMATIONS
-   ============================================ */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -330,9 +318,6 @@ body {
     animation: none;
 }
 
-/* ============================================
-   HEADER
-   ============================================ */
 .header {
     background: var(--bg-header);
     padding: 0.8rem 2rem;
@@ -389,9 +374,6 @@ body {
     background: var(--border-color);
 }
 
-/* ============================================
-   PROFILE
-   ============================================ */
 .profile-container {
     position: relative;
 }
@@ -528,9 +510,6 @@ body {
     color: var(--danger);
 }
 
-/* ============================================
-   NAVIGATION
-   ============================================ */
 .navbar {
     background: var(--nav-bg);
     padding: 0.5rem 1rem;
@@ -591,9 +570,6 @@ body {
     font-size: 1.1rem;
 }
 
-/* ============================================
-   PAGES
-   ============================================ */
 .page {
     display: none;
     animation: fadeIn 0.5s ease;
@@ -603,9 +579,6 @@ body {
     display: block;
 }
 
-/* ============================================
-   MAIN CONTENT
-   ============================================ */
 .main-content {
     max-width: 1200px;
     margin: 1.5rem auto;
@@ -615,9 +588,6 @@ body {
     gap: 1.5rem;
 }
 
-/* ============================================
-   HOME PAGE
-   ============================================ */
 .home-container {
     display: flex;
     flex-direction: column;
@@ -848,9 +818,6 @@ body {
     color: var(--text-secondary);
 }
 
-/* ============================================
-   TIMER PAGE
-   ============================================ */
 .timer-container {
     background: var(--bg-card);
     border-radius: 20px;
@@ -1033,9 +1000,6 @@ body {
     font-weight: 500;
 }
 
-/* ============================================
-   TASKS PAGE
-   ============================================ */
 .tasks-full-container {
     background: var(--bg-card);
     border-radius: 20px;
@@ -1185,9 +1149,6 @@ body {
     flex: 1;
 }
 
-/* ============================================
-   HISTORY PAGE
-   ============================================ */
 .history-container {
     background: var(--bg-card);
     border-radius: 20px;
@@ -1260,9 +1221,6 @@ body {
     margin-bottom: 1rem;
 }
 
-/* ============================================
-   ACHIEVEMENTS PAGE
-   ============================================ */
 .achievements-full-container {
     background: var(--bg-card);
     border-radius: 20px;
@@ -1330,9 +1288,6 @@ body {
     text-align: center;
 }
 
-/* ============================================
-   EDIT PROFILE PAGE
-   ============================================ */
 .profile-edit-container {
     background: var(--bg-card);
     border-radius: 24px;
@@ -1441,9 +1396,6 @@ body {
     margin-top: 0.5rem;
 }
 
-/* ============================================
-   SETTINGS PAGE
-   ============================================ */
 .settings-container {
     background: var(--bg-card);
     border-radius: 24px;
@@ -1555,7 +1507,6 @@ body {
     border-radius: 4px;
 }
 
-/* Toggle Switch */
 .switch {
     position: relative;
     display: inline-block;
@@ -1608,7 +1559,6 @@ body {
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
 }
 
-/* Color Options */
 .color-options {
     display: flex;
     gap: 0.6rem;
@@ -1648,9 +1598,6 @@ body {
     text-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
 
-/* ============================================
-   STATISTICS PAGE
-   ============================================ */
 .stats-container {
     background: var(--bg-card);
     border-radius: 24px;
@@ -1724,7 +1671,6 @@ body {
     margin-top: 0.2rem;
 }
 
-/* Charts */
 .stats-chart-container {
     margin: 1.8rem 0;
     padding: 1.8rem;
@@ -1844,9 +1790,6 @@ body {
     font-weight: 500;
 }
 
-/* ============================================
-   QUOTE CONTAINER
-   ============================================ */
 .quote-container {
     background: var(--bg-card);
     border-radius: 15px;
@@ -1892,9 +1835,6 @@ body {
     margin-right: 0.3rem;
 }
 
-/* ============================================
-   FOOTER
-   ============================================ */
 .footer {
     text-align: center;
     padding: 1.5rem;
@@ -1902,9 +1842,6 @@ body {
     font-size: 0.9rem;
 }
 
-/* ============================================
-   RESPONSIVE
-   ============================================ */
 @media (max-width: 768px) {
     .auth-container {
         flex-direction: column;
@@ -2111,7 +2048,6 @@ body {
     }
 }
 
-/* Break Controls */
 .break-controls {
     margin: 1rem 0 1.5rem;
     padding: 1rem;
@@ -2213,9 +2149,6 @@ body {
     color: var(--text-secondary);
 }
 
-/* ============================================
-   BREAK CONTROLS - NEW STYLES
-   ============================================ */
 .break-controls {
     margin: 0.5rem 0 1.5rem;
     padding: 1rem;
@@ -2268,7 +2201,6 @@ body {
     color: var(--text-light);
 }
 
-/* Toggle Switch for Break */
 .break-toggle-wrapper {
     display: flex;
     align-items: center;
@@ -2332,7 +2264,6 @@ body {
     color: var(--nav-active);
 }
 
-/* Responsive Break Controls */
 @media (max-width: 768px) {
     .break-controls {
         flex-direction: column;
