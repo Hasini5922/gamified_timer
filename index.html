@@ -8,9 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- ============================================ -->
-    <!-- LOGIN/SIGNUP OVERLAY -->
-    <!-- ============================================ -->
+
     <div id="authOverlay" class="auth-overlay">
         <div class="auth-container">
             <div class="auth-box">
@@ -20,7 +18,7 @@
                     <p>Stay productive, stay focused</p>
                 </div>
                 
-                <!-- Login Form -->
+
                 <form id="loginForm" class="auth-form active">
                     <h2>Welcome Back! 👋</h2>
                     <p class="auth-subtitle">Login to continue your journey</p>
@@ -44,7 +42,6 @@
                     </p>
                 </form>
                 
-                <!-- Signup Form -->
                 <form id="signupForm" class="auth-form">
                     <h2>Create Account 🚀</h2>
                     <p class="auth-subtitle">Start your productivity journey</p>
@@ -79,7 +76,6 @@
                 </form>
             </div>
             
-            <!-- Decorative Side -->
             <div class="auth-decorative">
                 <div class="floating-shapes">
                     <div class="shape shape1">🎯</div>
@@ -96,9 +92,6 @@
         </div>
     </div>
 
-    <!-- ============================================ -->
-    <!-- MAIN APP (Hidden until login) -->
-    <!-- ============================================ -->
     <div id="mainApp" style="display: none;">
         
         <!-- TOP HEADER WITH PROFILE -->
@@ -154,7 +147,6 @@
             </div>
         </header>
 
-        <!-- NAVIGATION BAR -->
         <nav class="navbar">
             <button class="nav-btn active" data-page="home">
                 <i class="fas fa-home"></i>
@@ -190,10 +182,7 @@
             </button>
         </nav>
 
-        <!-- MAIN CONTENT -->
         <main class="main-content">
-            
-            <!-- ========== HOME PAGE ========== -->
             <section id="page-home" class="page active">
                 <div class="home-container">
                     <div class="particles" id="particles"></div>
@@ -284,7 +273,6 @@
                 </div>
             </section>
 
-            <!-- ========== TIMER PAGE ========== -->
             <section id="page-timer" class="page">
                 <div class="timer-container">
                     <!-- Focus Duration -->
@@ -297,7 +285,6 @@
                         </div>
                     </div>
 
-                    <!-- Break Controls -->
                     <div class="break-controls">
                         <div class="break-settings">
                             <label>Break Duration:</label>
@@ -315,7 +302,6 @@
                         </div>
                     </div>
 
-                    <!-- Progress Ring -->
                     <div class="progress-ring-container">
                         <svg class="progress-ring" width="250" height="250">
                             <circle class="progress-bg" cx="125" cy="125" r="100" stroke="#e0e0e0" stroke-width="12" fill="none"/>
@@ -327,20 +313,17 @@
                         </div>
                     </div>
 
-                    <!-- Timer Controls -->
                     <div class="timer-controls">
                         <button id="startBtn" class="btn btn-primary btn-pulse">▶ Start</button>
                         <button id="pauseBtn" class="btn btn-secondary" disabled>⏸ Pause</button>
                         <button id="resetBtn" class="btn btn-secondary">↺ Reset</button>
                     </div>
 
-                    <!-- Session Info -->
                     <div class="session-info">
                         <span>Sessions Today: <strong id="sessionCount">0</strong></span>
                         <span>Total Focus: <strong id="totalTimeDisplay">0h 0m</strong></span>
                     </div>
 
-                    <!-- Current Task -->
                     <div class="current-task">
                         <label>Working on:</label>
                         <span id="currentTaskDisplay">No task selected</span>
@@ -348,7 +331,6 @@
                 </div>
             </section>
 
-            <!-- ========== TASKS PAGE ========== -->
             <section id="page-tasks" class="page">
                 <div class="tasks-full-container">
                     <div class="tasks-header">
@@ -383,7 +365,6 @@
                 </div>
             </section>
 
-            <!-- ========== HISTORY PAGE ========== -->
             <section id="page-history" class="page">
                 <div class="history-container">
                     <h2>📊 Session History</h2>
@@ -416,7 +397,6 @@
                 </div>
             </section>
 
-            <!-- ========== ACHIEVEMENTS PAGE ========== -->
             <section id="page-achievements" class="page">
                 <div class="achievements-full-container">
                     <h2>🏆 Achievements</h2>
@@ -430,7 +410,6 @@
                 </div>
             </section>
 
-            <!-- ========== PROFILE PAGE ========== -->
             <section id="page-profile" class="page">
                 <div class="profile-edit-container">
                     <h2>✏️ Edit Profile</h2>
@@ -474,7 +453,6 @@
                 </div>
             </section>
 
-            <!-- ========== SETTINGS PAGE ========== -->
             <section id="page-settings" class="page">
                 <div class="settings-container">
                     <h2>⚙️ Settings</h2>
@@ -563,7 +541,6 @@
                 </div>
             </section>
 
-            <!-- ========== STATISTICS PAGE ========== -->
             <section id="page-stats" class="page">
                 <div class="stats-container">
                     <h2>📊 Statistics</h2>
@@ -625,7 +602,6 @@
                 </div>
             </section>
 
-            <!-- ========== QUOTE SECTION ========== -->
             <div class="quote-container" id="quoteContainer">
                 <p id="quoteDisplay">"The secret of getting ahead is getting started."</p>
                 <span id="quoteAuthor">- Mark Twain</span>
@@ -635,7 +611,6 @@
             </div>
         </main>
 
-        <!-- Footer -->
         <footer class="footer">
             <p>🎯 Focus Timer - Stay productive, stay focused</p>
         </footer>
