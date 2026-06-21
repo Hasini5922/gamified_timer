@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎯 Focus Timer - Gamified Productivity</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- ============================================ -->
+    <!-- LOGIN/SIGNUP OVERLAY -->
+    <!-- ============================================ -->
+    <div id="authOverlay" class="auth-overlay">
+        <div class="auth-container">
+            <div class="auth-box">
+                <div class="auth-header">
+                    <span class="auth-logo">🎯</span>
+                    <h1>Focus Timer</h1>
+                    <p>Stay productive, stay focused</p>
+                </div>
+                
+                <!-- Login Form -->
+                <form id="loginForm" class="auth-form active">
+                    <h2>Welcome Back! 👋</h2>
+                    <p class="auth-subtitle">Login to continue your journey</p>
+                    <div id="authError" style="display:none;"></div>
+                    <div id="authSuccess" style="display:none;"></div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-envelope"></i> Email</label>
+                        <input type="email" id="loginEmail" placeholder="Enter your email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-lock"></i> Password</label>
+                        <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                    </div>
+                    
+                    <button type="submit" class="btn-auth" id="loginBtn">Login</button>
+                    
+                    <p class="auth-switch">
+                        Don't have an account? <a href="#" id="showSignup">Sign Up</a>
+                    </p>
+                </form>
+                
+                <!-- Signup Form -->
+                <form id="signupForm" class="auth-form">
+                    <h2>Create Account 🚀</h2>
+                    <p class="auth-subtitle">Start your productivity journey</p>
+                    <div id="signupError" style="display:none;"></div>
+                    <div id="signupSuccess" style="display:none;"></div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-user"></i> Username</label>
+                        <input type="text" id="signupName" placeholder="Choose a username" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-envelope"></i> Email</label>
+                        <input type="email" id="signupEmail" placeholder="Enter your email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-lock"></i> Password</label>
+                        <input type="password" id="signupPassword" placeholder="Create a password" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-check-circle"></i> Confirm Password</label>
+                        <input type="password" id="signupConfirm" placeholder="Confirm your password" required>
+                    </div>
+                    
+                    <button type="submit" class="btn-auth" id="signupBtn">Create Account</button>
+                    
+                    <p class="auth-switch">
+                        Already have an account? <a href="#" id="showLogin">Login</a>
+                    </p>
+                </form>
+            </div>
+            
+            <!-- Decorative Side -->
+            <div class="auth-decorative">
+                <div class="floating-shapes">
+                    <div class="shape shape1">🎯</div>
+                    <div class="shape shape2">⭐</div>
+                    <div class="shape shape3">🚀</div>
+                    <div class="shape shape4">💪</div>
+                    <div class="shape shape5">🔥</div>
+                </div>
+                <div class="auth-quote">
+                    <p>"The secret of getting ahead is getting started."</p>
+                    <span>- Mark Twain</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- MAIN APP (Hidden until login) -->
+    <!-- ============================================ -->
+    <div id="mainApp" style="display: none;">
+        
+        <!-- TOP HEADER WITH PROFILE -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">🎯</span>
+                <h1>Focus Timer</h1>
+            </div>
+            
+            <div class="header-right">
+                <!-- Theme Toggle -->
+                <button id="themeToggle" class="theme-toggle" title="Toggle Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                
+                <!-- User Profile -->
+                <div class="profile-container">
+                    <div class="profile-btn" id="profileBtn">
+                        <div class="profile-avatar">
+                            <span id="profileInitial">U</span>
+                        </div>
+                        <span class="profile-name" id="profileName">User</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    
+                    <!-- Profile Dropdown -->
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <div class="dropdown-header">
+                            <div class="dropdown-avatar">
+                                <span id="dropdownInitial">U</span>
+                            </div>
+                            <div class="dropdown-user-info">
+                                <span id="dropdownName">User</span>
+                                <span id="dropdownEmail">user@email.com</span>
+                            </div>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item" data-page="profile">
+                            <i class="fas fa-user"></i> Edit Profile
+                        </a>
+                        <a href="#" class="dropdown-item" data-page="settings">
+                            <i class="fas fa-cog"></i> Settings
+                        </a>
+                        <a href="#" class="dropdown-item" data-page="stats">
+                            <i class="fas fa-chart-bar"></i> Statistics
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item logout" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- NAVIGATION BAR -->
+        <nav class="navbar">
+            <button class="nav-btn active" data-page="home">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </button>
+            <button class="nav-btn" data-page="timer">
+                <i class="fas fa-clock"></i>
+                <span>Timer</span>
+            </button>
+            <button class="nav-btn" data-page="tasks">
+                <i class="fas fa-tasks"></i>
+                <span>Tasks</span>
+            </button>
+            <button class="nav-btn" data-page="history">
+                <i class="fas fa-history"></i>
+                <span>History</span>
+            </button>
+            <button class="nav-btn" data-page="achievements">
+                <i class="fas fa-trophy"></i>
+                <span>Achievements</span>
+            </button>
+            <button class="nav-btn" data-page="profile" style="display:none;">
+                <i class="fas fa-user-edit"></i>
+                <span>Profile</span>
+            </button>
+            <button class="nav-btn" data-page="settings" style="display:none;">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </button>
+            <button class="nav-btn" data-page="stats" style="display:none;">
+                <i class="fas fa-chart-bar"></i>
+                <span>Stats</span>
+            </button>
+        </nav>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            
+            <!-- ========== HOME PAGE ========== -->
+            <section id="page-home" class="page active">
+                <div class="home-container">
+                    <div class="particles" id="particles"></div>
+                    
+                    <div class="welcome-banner animate-slide-up">
+                        <div class="welcome-text">
+                            <h1>👋 Welcome back, <span id="welcomeName">User</span>!</h1>
+                            <p id="motivationMessage">"The secret of getting ahead is getting started."</p>
+                        </div>
+                        <div class="daily-stats-mini">
+                            <div class="mini-stat animate-pop">
+                                <span class="mini-icon">🔥</span>
+                                <span id="miniStreak">0</span>
+                                <span class="mini-label">Day Streak</span>
+                            </div>
+                            <div class="mini-stat animate-pop" style="animation-delay: 0.1s;">
+                                <span class="mini-icon">⭐</span>
+                                <span id="miniPoints">0</span>
+                                <span class="mini-label">Points</span>
+                            </div>
+                            <div class="mini-stat animate-pop" style="animation-delay: 0.2s;">
+                                <span class="mini-icon">📊</span>
+                                <span id="miniSessions">0</span>
+                                <span class="mini-label">Today</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="motivation-grid">
+                        <div class="motivation-card animate-float" style="animation-delay: 0s;">
+                            <div class="motivation-icon">💪</div>
+                            <h3>Stay Strong</h3>
+                            <p>"Success is the sum of small efforts repeated day in and day out."</p>
+                        </div>
+                        <div class="motivation-card animate-float" style="animation-delay: 0.2s;">
+                            <div class="motivation-icon">🧠</div>
+                            <h3>Stay Focused</h3>
+                            <p>"Focus on being productive instead of busy."</p>
+                        </div>
+                        <div class="motivation-card animate-float" style="animation-delay: 0.4s;">
+                            <div class="motivation-icon">🚀</div>
+                            <h3>Keep Going</h3>
+                            <p>"The only way to do great work is to love what you do."</p>
+                        </div>
+                    </div>
+
+                    <div class="quick-stats">
+                        <div class="stat-card animate-slide-up" style="animation-delay: 0.1s;">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <span class="stat-number" id="totalHours">0h</span>
+                                <span class="stat-label">Total Focus Time</span>
+                            </div>
+                        </div>
+                        <div class="stat-card animate-slide-up" style="animation-delay: 0.2s;">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <span class="stat-number" id="totalTasks">0</span>
+                                <span class="stat-label">Tasks Completed</span>
+                            </div>
+                        </div>
+                        <div class="stat-card animate-slide-up" style="animation-delay: 0.3s;">
+                            <i class="fas fa-trophy"></i>
+                            <div>
+                                <span class="stat-number" id="totalAchievements">0</span>
+                                <span class="stat-label">Achievements</span>
+                            </div>
+                        </div>
+                        <div class="stat-card animate-slide-up" style="animation-delay: 0.4s;">
+                            <i class="fas fa-fire"></i>
+                            <div>
+                                <span class="stat-number" id="totalSessions">0</span>
+                                <span class="stat-label">Total Sessions</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="level-progress-card animate-slide-up" style="animation-delay: 0.5s;">
+                        <div class="level-header">
+                            <span>🏅 Level <span id="homeLevel">1</span></span>
+                            <span id="levelProgressText">0 / 200 XP</span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill" id="homeProgressBar" style="width: 0%"></div>
+                        </div>
+                        <span class="level-name" id="homeLevelName">Focus Newbie</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========== TIMER PAGE ========== -->
+            <section id="page-timer" class="page">
+                <div class="timer-container">
+                    <!-- Focus Duration -->
+                    <div class="time-controls">
+                        <label>Focus Duration:</label>
+                        <div class="time-input-group">
+                            <input type="number" id="customMinutes" value="25" min="1" max="120">
+                            <span>minutes</span>
+                            <button id="setTimeBtn" class="btn btn-secondary">Set Time</button>
+                        </div>
+                    </div>
+
+                    <!-- Break Controls -->
+                    <div class="break-controls">
+                        <div class="break-settings">
+                            <label>Break Duration:</label>
+                            <div class="time-input-group">
+                                <input type="number" id="breakMinutes" value="5" min="0" max="30">
+                                <span>minutes</span>
+                            </div>
+                            <div class="break-toggle-wrapper">
+                                <label class="switch-label">
+                                    <input type="checkbox" id="breakToggle" checked>
+                                    <span class="switch-slider"></span>
+                                    <span class="switch-text" id="breakToggleText">Take Break</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Progress Ring -->
+                    <div class="progress-ring-container">
+                        <svg class="progress-ring" width="250" height="250">
+                            <circle class="progress-bg" cx="125" cy="125" r="100" stroke="#e0e0e0" stroke-width="12" fill="none"/>
+                            <circle id="progressCircle" class="progress-fill" cx="125" cy="125" r="100" stroke="#4CAF50" stroke-width="12" fill="none" stroke-linecap="round" stroke-dasharray="628.32" stroke-dashoffset="0"/>
+                        </svg>
+                        <div class="timer-display">
+                            <span id="timerDisplay">25:00</span>
+                            <span class="timer-label" id="sessionLabel">Focus Time</span>
+                        </div>
+                    </div>
+
+                    <!-- Timer Controls -->
+                    <div class="timer-controls">
+                        <button id="startBtn" class="btn btn-primary btn-pulse">▶ Start</button>
+                        <button id="pauseBtn" class="btn btn-secondary" disabled>⏸ Pause</button>
+                        <button id="resetBtn" class="btn btn-secondary">↺ Reset</button>
+                    </div>
+
+                    <!-- Session Info -->
+                    <div class="session-info">
+                        <span>Sessions Today: <strong id="sessionCount">0</strong></span>
+                        <span>Total Focus: <strong id="totalTimeDisplay">0h 0m</strong></span>
+                    </div>
+
+                    <!-- Current Task -->
+                    <div class="current-task">
+                        <label>Working on:</label>
+                        <span id="currentTaskDisplay">No task selected</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========== TASKS PAGE ========== -->
+            <section id="page-tasks" class="page">
+                <div class="tasks-full-container">
+                    <div class="tasks-header">
+                        <h2>📋 Your Tasks</h2>
+                        <div class="task-stats-mini">
+                            <span>Total: <strong id="taskTotal">0</strong></span>
+                            <span>Completed: <strong id="taskCompleted">0</strong></span>
+                            <span>Pending: <strong id="taskPending">0</strong></span>
+                        </div>
+                    </div>
+                    
+                    <div class="task-input">
+                        <input type="text" id="taskInput" placeholder="What do you want to focus on?">
+                        <button id="addTaskBtn" class="btn btn-success">+ Add Task</button>
+                    </div>
+                    
+                    <div class="task-filters">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="pending">Pending</button>
+                        <button class="filter-btn" data-filter="completed">Completed</button>
+                    </div>
+                    
+                    <ul id="taskList" class="task-list"></ul>
+                    
+                    <div class="task-progress">
+                        <span>Progress</span>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill" id="taskProgressBar" style="width: 0%"></div>
+                        </div>
+                        <span id="taskProgressText">0%</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========== HISTORY PAGE ========== -->
+            <section id="page-history" class="page">
+                <div class="history-container">
+                    <h2>📊 Session History</h2>
+                    
+                    <div class="history-stats">
+                        <div class="history-stat">
+                            <span class="hstat-number" id="hTotalSessions">0</span>
+                            <span class="hstat-label">Total Sessions</span>
+                        </div>
+                        <div class="history-stat">
+                            <span class="hstat-number" id="hTotalTime">0h</span>
+                            <span class="hstat-label">Total Time</span>
+                        </div>
+                        <div class="history-stat">
+                            <span class="hstat-number" id="hAvgTime">0m</span>
+                            <span class="hstat-label">Avg Duration</span>
+                        </div>
+                        <div class="history-stat">
+                            <span class="hstat-number" id="hBestStreak">0</span>
+                            <span class="hstat-label">Best Streak</span>
+                        </div>
+                    </div>
+
+                    <div class="history-list" id="historyList">
+                        <div class="empty-state">
+                            <i class="fas fa-history" style="font-size: 3rem; color: #ccc;"></i>
+                            <p>No sessions yet. Start your first focus session!</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========== ACHIEVEMENTS PAGE ========== -->
+            <section id="page-achievements" class="page">
+                <div class="achievements-full-container">
+                    <h2>🏆 Achievements</h2>
+                    <div class="achievement-progress">
+                        <span>Unlocked: <strong id="achUnlocked">0</strong> / <span id="achTotal">0</span></span>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill" id="achProgressBar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div id="achievementGrid" class="achievement-grid"></div>
+                </div>
+            </section>
+
+            <!-- ========== PROFILE PAGE ========== -->
+            <section id="page-profile" class="page">
+                <div class="profile-edit-container">
+                    <h2>✏️ Edit Profile</h2>
+                    <div class="profile-edit-card">
+                        <div class="profile-edit-avatar">
+                            <div class="profile-edit-avatar-circle" id="profileEditAvatar">
+                                <span id="profileEditInitial">U</span>
+                            </div>
+                        </div>
+                        
+                        <form id="profileEditForm">
+                            <div class="form-group">
+                                <label><i class="fas fa-user"></i> Username</label>
+                                <input type="text" id="editUsername" placeholder="Enter your username">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label><i class="fas fa-envelope"></i> Email</label>
+                                <input type="email" id="editEmail" placeholder="Enter your email">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label><i class="fas fa-lock"></i> Current Password</label>
+                                <input type="password" id="editCurrentPassword" placeholder="Enter current password">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label><i class="fas fa-lock"></i> New Password</label>
+                                <input type="password" id="editNewPassword" placeholder="Enter new password (optional)">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label><i class="fas fa-check-circle"></i> Confirm New Password</label>
+                                <input type="password" id="editConfirmPassword" placeholder="Confirm new password">
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">💾 Save Changes</button>
+                            <button type="button" class="btn btn-secondary" onclick="navigateTo('home')">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========== SETTINGS PAGE ========== -->
+            <section id="page-settings" class="page">
+                <div class="settings-container">
+                    <h2>⚙️ Settings</h2>
+                    
+                    <div class="settings-card">
+                        <div class="settings-section">
+                            <h3>🎨 Appearance</h3>
+                            <div class="settings-item">
+                                <span>Dark Mode</span>
+                                <label class="switch">
+                                    <input type="checkbox" id="darkModeToggle">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="settings-item">
+                                <span>Theme Color</span>
+                                <div class="color-options">
+                                    <button class="color-option active" data-color="#667eea" style="background: #667eea;"></button>
+                                    <button class="color-option" data-color="#f44336" style="background: #f44336;"></button>
+                                    <button class="color-option" data-color="#4CAF50" style="background: #4CAF50;"></button>
+                                    <button class="color-option" data-color="#FF9800" style="background: #FF9800;"></button>
+                                    <button class="color-option" data-color="#9C27B0" style="background: #9C27B0;"></button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-divider"></div>
+                        
+                        <div class="settings-section">
+                            <h3>⏱️ Timer Settings</h3>
+                            <div class="settings-item">
+                                <span>Default Focus Duration</span>
+                                <div class="settings-input-group">
+                                    <input type="number" id="settingsDefaultTime" value="25" min="1" max="120">
+                                    <span>minutes</span>
+                                </div>
+                            </div>
+                            <div class="settings-item">
+                                <span>Default Break Duration</span>
+                                <div class="settings-input-group">
+                                    <input type="number" id="settingsBreakTime" value="5" min="0" max="30">
+                                    <span>minutes</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-divider"></div>
+                        
+                        <div class="settings-section">
+                            <h3>🔔 Notifications</h3>
+                            <div class="settings-item">
+                                <span>Enable Browser Notifications</span>
+                                <label class="switch">
+                                    <input type="checkbox" id="notificationsToggle" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="settings-item">
+                                <span>Sound Effects</span>
+                                <label class="switch">
+                                    <input type="checkbox" id="soundToggle" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-divider"></div>
+                        
+                        <div class="settings-section">
+                            <h3>💾 Data Management</h3>
+                            <div class="settings-item">
+                                <span>Export All Data</span>
+                                <button class="btn btn-secondary" onclick="exportData()">📤 Export</button>
+                            </div>
+                            <div class="settings-item">
+                                <span>Import Data</span>
+                                <button class="btn btn-secondary" onclick="document.getElementById('importFile').click()">📥 Import</button>
+                                <input type="file" id="importFile" accept=".json" style="display:none;" onchange="importData(event)">
+                            </div>
+                            <div class="settings-item">
+                                <span>Clear All Data</span>
+                                <button class="btn btn-danger" onclick="clearAllData()">🗑️ Clear Data</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========== STATISTICS PAGE ========== -->
+            <section id="page-stats" class="page">
+                <div class="stats-container">
+                    <h2>📊 Statistics</h2>
+                    
+                    <div class="stats-grid">
+                        <div class="stats-card">
+                            <div class="stats-card-icon">📅</div>
+                            <div class="stats-card-content">
+                                <span class="stats-card-number" id="statsTotalSessions">0</span>
+                                <span class="stats-card-label">Total Sessions</span>
+                            </div>
+                        </div>
+                        <div class="stats-card">
+                            <div class="stats-card-icon">⏱️</div>
+                            <div class="stats-card-content">
+                                <span class="stats-card-number" id="statsTotalHours">0h</span>
+                                <span class="stats-card-label">Total Focus Time</span>
+                            </div>
+                        </div>
+                        <div class="stats-card">
+                            <div class="stats-card-icon">⭐</div>
+                            <div class="stats-card-content">
+                                <span class="stats-card-number" id="statsTotalPoints">0</span>
+                                <span class="stats-card-label">Total Points</span>
+                            </div>
+                        </div>
+                        <div class="stats-card">
+                            <div class="stats-card-icon">📋</div>
+                            <div class="stats-card-content">
+                                <span class="stats-card-number" id="statsTasksDone">0</span>
+                                <span class="stats-card-label">Tasks Completed</span>
+                            </div>
+                        </div>
+                        <div class="stats-card">
+                            <div class="stats-card-icon">🏆</div>
+                            <div class="stats-card-content">
+                                <span class="stats-card-number" id="statsAchievements">0</span>
+                                <span class="stats-card-label">Achievements</span>
+                            </div>
+                        </div>
+                        <div class="stats-card">
+                            <div class="stats-card-icon">🔥</div>
+                            <div class="stats-card-content">
+                                <span class="stats-card-number" id="statsBestStreak">0</span>
+                                <span class="stats-card-label">Best Streak</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-chart-container">
+                        <h3>📈 Weekly Activity</h3>
+                        <div class="weekly-chart" id="weeklyChart"></div>
+                    </div>
+                    
+                    <div class="stats-chart-container">
+                        <h3>🎯 Session Distribution</h3>
+                        <div class="distribution-chart" id="distributionChart"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========== QUOTE SECTION ========== -->
+            <div class="quote-container" id="quoteContainer">
+                <p id="quoteDisplay">"The secret of getting ahead is getting started."</p>
+                <span id="quoteAuthor">- Mark Twain</span>
+                <div class="quote-refresh" id="quoteRefresh">
+                    <i class="fas fa-sync-alt"></i> Refresh Quote
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>🎯 Focus Timer - Stay productive, stay focused</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
