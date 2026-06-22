@@ -267,7 +267,6 @@ function handleLogin(e) {
         return;
     }
     
-    // Login successful
     state.userName = user.name;
     state.userEmail = user.email;
     state.isLoggedIn = true;
@@ -1133,7 +1132,6 @@ function clearAllData() {
 }
 
 function setupBreakControls() {
-    // Break duration input
     if (DOM.breakMinutes) {
         DOM.breakMinutes.value = state.breakDuration || 5;
         DOM.breakMinutes.addEventListener('change', function() {
